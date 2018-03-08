@@ -308,7 +308,6 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
             picker.dismiss(animated: true) {
                 self.addStoryImageView.image = chosenImage
             }
-            //处理传入后台
         }
     }
     
