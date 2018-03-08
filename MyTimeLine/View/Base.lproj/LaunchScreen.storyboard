@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2016-FOREVER HANS AND NINI ALL RIGHTS RESERVED." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wah-Db-9Yo">
+                                <rect key="frame" x="45" y="650" width="286" height="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Hans" translatesAutoresizingMaskIntoConstraints="NO" id="RsA-1a-EKi">
+                                <rect key="frame" x="0.0" y="163" width="375" height="341"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="RsA-1a-EKi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6uY-qa-AsI"/>
+                            <constraint firstItem="RsA-1a-EKi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="143" id="Caq-v3-PzL"/>
+                            <constraint firstItem="RsA-1a-EKi" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="GlB-Mo-kVu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RsA-1a-EKi" secondAttribute="trailing" id="PIy-UN-BMK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wah-Db-9Yo" secondAttribute="bottom" constant="5" id="itd-nA-Zd5"/>
+                            <constraint firstItem="Wah-Db-9Yo" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="vGt-0G-WwN"/>
+                            <constraint firstItem="RsA-1a-EKi" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zSS-7x-p3o"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Hans" width="590" height="208"/>
+    </resources>
+</document>
