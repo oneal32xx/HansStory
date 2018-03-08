@@ -318,10 +318,6 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
         if isKeyboardShown {
             return
         }
- 
-//        if (currentTextView != addStoryContentTexeView) {
-//            return
-//        }
         
         let keyboardAnimationDetail = note.userInfo as! [String: AnyObject]
         let duration = TimeInterval(truncating: keyboardAnimationDetail[UIKeyboardAnimationDurationUserInfoKey]! as! NSNumber)
