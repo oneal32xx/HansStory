@@ -61,6 +61,8 @@
 		3AA2AE2F204ECB47006FC890 /* DatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AA2AE2B204ECB47006FC890 /* DatePickerView.xib */; };
 		3AA2AE4F204F91A7006FC890 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA2AE4E204F91A7006FC890 /* MyInfoViewController.swift */; };
 		6DCF04A085346A078858E9BD /* Pods_MyTimeLine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FFCDCB9CD2944177290393E /* Pods_MyTimeLine.framework */; };
+		D480EA6B20521BB50028D713 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480EA6A20521BB50028D713 /* BaseViewController.swift */; };
+		D480EA702056718D0028D713 /* FireBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480EA6F2056718D0028D713 /* FireBaseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -154,6 +156,8 @@
 		3AA2AE4E204F91A7006FC890 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		3AB3FC89014B8A57AE23B590 /* Pods-MyTimeLine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTimeLine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyTimeLine/Pods-MyTimeLine.debug.xcconfig"; sourceTree = "<group>"; };
 		9FFCDCB9CD2944177290393E /* Pods_MyTimeLine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTimeLine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D480EA6A20521BB50028D713 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		D480EA6F2056718D0028D713 /* FireBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseManager.swift; sourceTree = "<group>"; };
 		F527B101417B25B69F130D21 /* Pods-MyTimeLine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTimeLine.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyTimeLine/Pods-MyTimeLine.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,6 +194,7 @@
 		3A4DC83020438E420069DD7F /* MyTimeLine */ = {
 			isa = PBXGroup;
 			children = (
+				D480EA6E2056715E0028D713 /* Manager */,
 				3A4E79EC204D89C300C0D3C6 /* Extention */,
 				3A4E79FA204EA56C00C0D3C6 /* BoneZoomImage */,
 				3A4E79F9204EA53500C0D3C6 /* Supporting Files */,
@@ -229,6 +234,7 @@
 				3A4DC8432044FBEA0069DD7F /* TimeLineTableViewCell.swift */,
 				3A4E79F1204D8E7500C0D3C6 /* EditStoryViewController.swift */,
 				3AA2AE4E204F91A7006FC890 /* MyInfoViewController.swift */,
+				D480EA6A20521BB50028D713 /* BaseViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -376,6 +382,14 @@
 				9FFCDCB9CD2944177290393E /* Pods_MyTimeLine.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D480EA6E2056715E0028D713 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				D480EA6F2056718D0028D713 /* FireBaseManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -526,6 +540,7 @@
 				3A4E7A09204EA84D00C0D3C6 /* TimeExtension.swift in Sources */,
 				3A4E7A0A204EA84D00C0D3C6 /* UIScreenDisplaying.m in Sources */,
 				3A4E7A38204EA95100C0D3C6 /* BoneDatasSheet.swift in Sources */,
+				D480EA6B20521BB50028D713 /* BaseViewController.swift in Sources */,
 				3A4E7A5C204EA98900C0D3C6 /* MASViewConstraint.m in Sources */,
 				3A4E7A08204EA84D00C0D3C6 /* UIView+AddClickedEvent.m in Sources */,
 				3A4E7A5B204EA98900C0D3C6 /* NSArray+MASAdditions.m in Sources */,
@@ -542,6 +557,7 @@
 				3A4E7A30204EA95000C0D3C6 /* MMDateView.m in Sources */,
 				3AA2AE2E204ECB47006FC890 /* PickerView.swift in Sources */,
 				3A4E7A37204EA95100C0D3C6 /* MMPopupWindow.m in Sources */,
+				D480EA702056718D0028D713 /* FireBaseManager.swift in Sources */,
 				3A4DC83420438E420069DD7F /* TimeLineViewController.swift in Sources */,
 				3AA2AE2C204ECB47006FC890 /* DatePickerView.swift in Sources */,
 				3A4E7A64204EA99D00C0D3C6 /* BoneZoom.swift in Sources */,

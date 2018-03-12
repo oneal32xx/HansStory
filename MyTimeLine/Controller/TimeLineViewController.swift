@@ -9,13 +9,10 @@
 import UIKit
 import FirebaseStorage
 import FirebaseDatabase
-import NVActivityIndicatorView
 
-
-class TimeLineViewController: UIViewController , UITableViewDataSource, UITableViewDelegate, AddStoryDelegate, NVActivityIndicatorViewable{
+class TimeLineViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, AddStoryDelegate {
    
     func addStoryComplete() {
-        self.startAnimating()
         updateTableView()
         self.stopAnimating()
     }
@@ -29,16 +26,12 @@ class TimeLineViewController: UIViewController , UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NVActivityIndicatorView.DEFAULT_TYPE = .ballBeat
-        NVActivityIndicatorView.DEFAULT_BLOCKER_SIZE = CGSize(width: 100, height: 100)
-        
+       
+        self.baseViewPageInit()
+       
         //getting a reference to the node story
-        
         refStory = Database.database().reference().child("story");
         updateTableView()
-        
-        
         // Do any additional setup after loading the view, typically from a nib.
         TimeLineTableView.delegate = self
         TimeLineTableView.dataSource = self
@@ -64,16 +57,14 @@ class TimeLineViewController: UIViewController , UITableViewDataSource, UITableV
     
     func updateTableView()
     {
-self.startAnimating()
+        self.startAnimating()
         //observing the data changes
         refStory.observe(DataEventType.value, with: { (snapshot) in
             //if the reference have some values
             if snapshot.childrenCount > 0 {
-                
                 //clearing the list
                 self.story.removeAll()
                 self.storyImage.removeAll()
-                
                 //iterating through all the values
                 for story in snapshot.children.allObjects as! [DataSnapshot] {
                     //getting values
@@ -83,17 +74,16 @@ self.startAnimating()
                     let storyContent = storyObject?["Story"]
                     let ImageURL = storyObject?["ImageURL"]
                     let StoryDate = storyObject?["StoryDate"]
-                    
                     let storyImage: UIImage?
                     
                     let url = URL(string: ImageURL as! String)
-                    if let data = try? Data(contentsOf: url!)
-                    {
-                        let image: UIImage = UIImage(data: data)!
-                        storyImage = image
-                    }else{
-                        storyImage = UIImage()
-                    }
+//                    if let data = try? Data(contentsOf: url!)
+//                    {
+//                        let image: UIImage = UIImage(data: data)!
+//                        storyImage = image
+//                    }else{
+//                        storyImage = UIImage()
+//                    }
                     
                     //creating artist object with model and fetched values
                     let storyItem = Story(id: storyId as! String?,
@@ -101,20 +91,19 @@ self.startAnimating()
                                                Story: storyContent as! String?,
                                                ImageURL: ImageURL as! String?,
                                                StoryDate: StoryDate as! String?,
-                                               StoryImage: storyImage)
+                                               StoryImage: UIImage())
                     
                     //appending it to list
                     self.story.append(storyItem)
                 }
                 
                 self.story.sort(by: { $0.StoryDate! > $1.StoryDate! })
-                
                 //reloading the tableview
                 self.TimeLineTableView.reloadData()
+                self.stopAnimating()
             }
         })
         
-        self.stopAnimating()
         
     }
 
@@ -127,7 +116,7 @@ self.startAnimating()
         let cell = tableView.dequeueReusableCell(withIdentifier: "TimeLineTableViewCell", for: indexPath) as! TimeLineTableViewCell
         cell.TimeLineDate.text = story[indexPath.row].StoryDate
         cell.TimeLineString.text = story[indexPath.row].Story
-        cell.TimeLineImage.image = story[indexPath.row].StoryImage
+        cell.TimeLineImage.loadImageUsingCache(withUrl: story[indexPath.row].ImageURL!)
         cell.TimeLineImage.zoomImage()
         return cell
     }
@@ -143,13 +132,13 @@ self.startAnimating()
     }
 
     func DeleteStory(id:String){
-        self.startAnimating()
+        
         //updating the artist using the key of the artist
         refStory.child(id).setValue(nil)
         //displaying message
         print("story delete!")
         updateTableView()
-        self.stopAnimating()
+      
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -172,14 +161,13 @@ self.startAnimating()
             let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
             let controller = mainStoryboard.instantiateViewController(withIdentifier: "EditStoryViewController") as! EditStoryViewController
             controller.EditStory = self.story[indexPath.row]
-            controller.EditImageView = self.story[indexPath.row].StoryImage
             controller.isEditStory = true
             self.present(controller, animated: true, completion: nil)
             success(true)
         })
         closeAction.title = "想加點什麼?!"
         closeAction.image = UIImage(named: "pen")
-
+        
 
         return UISwipeActionsConfiguration(actions: [closeAction])
 
@@ -219,27 +207,27 @@ self.startAnimating()
         let google = ActionButtonItem(title: "新增回憶", image: plusImage)
         google.action = {
             item in print("Google Plus...")
-            self.startAnimating()
+
             //顯示編輯頁面
             self.actionButton.toggleMenu()
             let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
             let controller = mainStoryboard.instantiateViewController(withIdentifier: "EditStoryViewController") as! EditStoryViewController
             controller.isEditStory = false
             self.present(controller, animated: true, completion: nil)
-            self.stopAnimating()
+        
            
         }
         
         let twitter = ActionButtonItem(title: "作者介紹", image: twitterImage)
         twitter.action = { item in print("Twitter...")
             
-            self.startAnimating()
+     
             //顯示編輯頁面
             self.actionButton.toggleMenu()
             let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
             let controller = mainStoryboard.instantiateViewController(withIdentifier: "MyInfoViewController") as! MyInfoViewController
             self.present(controller, animated: true, completion: nil)
-            self.stopAnimating()
+        
             
             
         }

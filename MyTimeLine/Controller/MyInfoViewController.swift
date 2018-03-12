@@ -16,7 +16,6 @@ class MyInfoViewController: UIViewController, IAxisValueFormatter {
     @IBOutlet weak var RadarChart: RadarChartView!
     
     @IBAction func backPressed(_ sender: Any) {
-   
      self.dismiss(animated: true, completion: nil)
     }
     
@@ -36,13 +35,12 @@ class MyInfoViewController: UIViewController, IAxisValueFormatter {
         
         
         let yAxis = RadarChart.yAxis
-        yAxis.labelFont = .systemFont(ofSize: 14, weight: .light)
-        yAxis.labelCount = 6
+        yAxis.labelFont = .systemFont(ofSize: 8, weight: .light)
+        yAxis.labelCount = 5
         yAxis.axisMinimum = 0
-        yAxis.axisMaximum = 100
+        yAxis.axisMaximum = 180
         yAxis.drawLabelsEnabled = false
      
-
         
         RadarChart.animate(xAxisDuration: 1.4, yAxisDuration: 1.4, easingOption: .easeOutBack)
     }
@@ -71,7 +69,7 @@ class MyInfoViewController: UIViewController, IAxisValueFormatter {
         let ChartDataEntry2 = ChartDataEntry.init(x: 0, y: 110)
         let ChartDataEntry3 = ChartDataEntry.init(x: 0, y: 20)
         let ChartDataEntry4 = ChartDataEntry.init(x: 0, y: 110)
-        let ChartDataEntry5 = ChartDataEntry.init(x: 0, y: 200)
+        let ChartDataEntry5 = ChartDataEntry.init(x: 0, y: 240)
         let entry: [ChartDataEntry]? =  [ChartDataEntry1,
                                          ChartDataEntry2,
                                          ChartDataEntry3,

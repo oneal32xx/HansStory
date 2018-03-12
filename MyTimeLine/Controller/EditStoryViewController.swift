@@ -9,7 +9,6 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseStorage
-import NVActivityIndicatorView
 
 protocol AddStoryDelegate {
     func addStoryComplete()
@@ -19,23 +18,23 @@ protocol EditStoryDelegate {
     func editStoryComplete()
 }
 
-class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate ,NVActivityIndicatorViewable, UITextViewDelegate{
+class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate , UITextViewDelegate{
 
     @IBOutlet weak var addStoryButton: UIButton!
     @IBOutlet weak var addStoryCancelButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addStoryImageView: UIImageView!
     @IBOutlet weak var addStoryDatePickerLabel: UILabel!
+    @IBOutlet weak var addStoryContentTexeView: UITextView!
+    @IBOutlet weak var datepickerButton: UIButton!
+    
     private var currentTextField: UITextField?
     var tempImageURL: String?
     var refStory: DatabaseReference!
     private var isKeyboardShown = false
-    
     var date: Date?
-    
-    @IBOutlet weak var addStoryContentTexeView: UITextView!
+
     private var currentTextView: UITextView?
-    @IBOutlet weak var datepickerButton: UIButton!
   
     var addStoryDelegate: AddStoryDelegate?
     var editStoryDelegate: EditStoryDelegate?
@@ -43,7 +42,8 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
     var EditStory: Story!
     var EditImageView: UIImage!
     var isEditStory = false
-    
+    var isPickNewPhoto = false
+    var updateAlert = false
     
     // 建立一個 UIImagePickerController 的實體
     let imagePickerController = UIImagePickerController()
@@ -52,13 +52,9 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
     // 設定 UIAlertController 的標題與樣式為 動作清單 (actionSheet)
     let imagePickerAlertController = UIAlertController(title: "上傳圖片", message: "請選擇要上傳的圖片", preferredStyle: .actionSheet)
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        NVActivityIndicatorView.DEFAULT_TYPE = .ballBeat
-        NVActivityIndicatorView.DEFAULT_BLOCKER_SIZE = CGSize(width: 100, height: 100)
-      
-        
+     
         refStory = Database.database().reference().child("story");
         pageInit()
         
@@ -77,22 +73,14 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
     }
 
     func pageInit(){
-        self.startAnimating()
-        
         initImagePickerController()
-        
         if(EditStory != nil)
         {
             addStoryContentTexeView.text = EditStory.Story
+            addStoryImageView.loadImageUsingCache(withUrl: EditStory.ImageURL!)
         }
         
-        
-        
-        if(EditImageView != nil){
-            addStoryImageView.image = EditStory.StoryImage
-        }
-        
-        if(isEditStory)
+        if(isEditStory)//編輯模式
         {
             let dateformatter = DateFormatter()
             dateformatter.dateFormat = "yyyy/MM/dd"
@@ -100,18 +88,19 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
             addStoryDatePickerLabel.text = string1
             date = dateformatter.date(from: string1!)
             
-        }else{
+        }else{//新增模式
             date = Date()
+            let dateformatter = DateFormatter()
+            dateformatter.dateFormat = "YYYY/MM/dd"
+            let NowDay = dateformatter.string(from: self.date!)
+            addStoryDatePickerLabel.text = NowDay
         }
-        
-        self.stopAnimating()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
          currentTextView = textView
@@ -158,11 +147,12 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
     @IBAction func okPressed(_ sender: Any) {
         self.startAnimating()
         self.UploadImage(image: addStoryImageView)
-        self.stopAnimating()
+        if(updateAlert){
+            self.stopAnimating()
+        }
     }
     
     func initImagePickerController(){
-        
         // 委任代理
         imagePickerController.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
         // 建立三個 UIAlertAction 的實體
@@ -209,20 +199,33 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
     
     func UploadImage( image: UIImageView)
     {
-        if(image.image == nil)
+        if(isEditStory == false && isPickNewPhoto == false)
         {
+            updateAlert = true
+            let alertController = UIAlertController(title: "提示", message: "圖片還沒有選擇哦！ （敲碗！", preferredStyle: .alert);
+            let alertActionOK = UIAlertAction(title: "確定", style: .default, handler: nil);
+            alertController.addAction(alertActionOK);
+            self.present(alertController, animated: true, completion: nil);
             print("圖片還沒選")
             return
         }
         
-        if(addStoryContentTexeView.text == nil)
+        if(addStoryContentTexeView.text == nil || addStoryContentTexeView.text.isEmpty)
         {
+            updateAlert = true
+            let alertController = UIAlertController(title: "提示", message: "回憶內容還沒寫哦！", preferredStyle: .alert);
+            let alertActionOK = UIAlertAction(title: "確定", style: .default, handler: nil);
+            alertController.addAction(alertActionOK);
+            self.present(alertController, animated: true, completion: nil);
             print("故事內容還沒寫")
             return
-            
         }
-
         
+        updateAlert = false
+        
+        if(isPickNewPhoto)
+        {
+        //選擇新圖片的流程
         // 可以自動產生一組獨一無二的 ID 號碼，方便等一下上傳圖片的命名
         var uniqueString = NSUUID().uuidString
         if(isEditStory)
@@ -231,7 +234,7 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
         }
         
         let storageRef = Storage.storage().reference().child("AppCodaFireUpload").child("\(uniqueString).jpge")
-        if let uploadData = UIImageJPEGRepresentation(image.image!, 0.1) {
+        if let uploadData = UIImageJPEGRepresentation(image.image!, 0.02) {
             // 這行就是 FirebaseStorage 關鍵的存取方法。
             storageRef.putData(uploadData, metadata: nil, completion: { (data, error) in
                 if error != nil {
@@ -259,7 +262,6 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
                         else {
                             
                             print("圖片已儲存")
-                            
                             //generating a new key inside artists node
                             //and also getting the generated key
                             var key = self.refStory.childByAutoId().key
@@ -277,7 +279,7 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
                                          "UploadUser": "HansJiang",
                                          "Story": self.addStoryContentTexeView.text! as String,
                                          "ImageURL": uploadImageUrl,
-                                         "StoryDate": customDate as String,
+                                         "StoryDate": self.addStoryDatePickerLabel.text,
                                          ]
                             
                             //adding the artist inside the generated unique key
@@ -297,6 +299,30 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
                 }
             })
         }
+        }else{
+            //沒有選擇新圖片,僅更新內容
+            //creating artist with the given values
+            let story = ["id":self.EditStory.id,
+                         "UploadUser": "HansJiang",
+                         "Story": self.addStoryContentTexeView.text! as String,
+                         "ImageURL": self.EditStory.ImageURL,
+                         "StoryDate": self.addStoryDatePickerLabel.text,
+                         ]
+            
+            //adding the artist inside the generated unique key
+            self.refStory.child(self.EditStory.id!).setValue(story) { (error, ref) in
+                if error != nil{
+                    print(error!)
+                    
+                }else{
+                    print("update OK!")
+                    self.addStoryDelegate?.addStoryComplete()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+            
+        }
+        
         
       
     }
@@ -307,6 +333,7 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
         if let chosenImage =  info[UIImagePickerControllerOriginalImage] as? UIImage {
             picker.dismiss(animated: true) {
                 self.addStoryImageView.image = chosenImage
+                self.isPickNewPhoto = true
             }
         }
     }
@@ -317,7 +344,7 @@ class EditStoryViewController:  UIViewController, UITextFieldDelegate, UIImagePi
         if isKeyboardShown {
             return
         }
-        
+
         let keyboardAnimationDetail = note.userInfo as! [String: AnyObject]
         let duration = TimeInterval(truncating: keyboardAnimationDetail[UIKeyboardAnimationDurationUserInfoKey]! as! NSNumber)
         let keyboardFrameValue = keyboardAnimationDetail[UIKeyboardFrameBeginUserInfoKey]! as! NSValue
