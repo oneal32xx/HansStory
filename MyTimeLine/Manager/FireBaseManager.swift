@@ -7,7 +7,19 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseDatabase
 
 class FireBaseManager: NSObject {
+    public static let shared: FireBaseManager = FireBaseManager()
+    public var refStory: DatabaseReference!
+    
+    func initFirebase()
+    {
+        refStory = Database.database().reference().child("story");
+        
+        
+    }
 
+    
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+//CG SWIFT3 Convert
 extension CGRect {
     init(_ x:CGFloat, _ y:CGFloat, _ w:CGFloat, _ h:CGFloat) {
         self.init(x:x, y:y, width:w, height:h)
@@ -20,7 +21,7 @@ extension CGSize{
     }
 }
 
-
+//UIView 圓角,陰影
 extension UIView {
     
     @IBInspectable
@@ -108,16 +109,19 @@ extension UIView {
     }
 }
 
+//圖片緩衝載入
 let imageCache = NSCache<NSString, AnyObject>()
-
 extension UIImageView {
     func loadImageUsingCache(withUrl urlString : String) {
         let url = URL(string: urlString)
-        self.image = nil
+        let loadingGif = UIImage.gifImageWithName("pikaLoading3")
+        self.image = loadingGif
+        self.alpha = 0.5
         
         // check cached image
         if let cachedImage = imageCache.object(forKey: urlString as NSString) as? UIImage {
             self.image = cachedImage
+            self.alpha = 1
             return
         }
         
@@ -132,9 +136,34 @@ extension UIImageView {
                 if let image = UIImage(data: data!) {
                     imageCache.setObject(image, forKey: urlString as NSString)
                     self.image = image
+                    self.alpha = 1
                 }
             }
             
         }).resume()
     }
+}
+
+//圖片解析度
+extension UIImage {
+    enum JPEGQuality: CGFloat {
+        case lowest  = 0
+        case low     = 0.25
+        case medium  = 0.5
+        case high    = 0.75
+        case highest = 1
+    }
+    
+    /// Returns the data for the specified image in JPEG format.
+    /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
+    /// - returns: A data object containing the JPEG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
+    func jpeg(_ quality: JPEGQuality) -> Data? {
+        return UIImageJPEGRepresentation(self, quality.rawValue)
+    }
+    
+    var highestQualityJPEGNSData: NSData { return UIImageJPEGRepresentation(self, 1.0)! as NSData }
+    var highQualityJPEGNSData: NSData    { return UIImageJPEGRepresentation(self, 0.75)! as NSData}
+    var mediumQualityJPEGNSData: NSData  { return UIImageJPEGRepresentation(self, 0.5)! as NSData }
+    var lowQualityJPEGNSData: NSData     { return UIImageJPEGRepresentation(self, 0.25)! as NSData}
+    var lowestQualityJPEGNSData: NSData  { return UIImageJPEGRepresentation(self, 0.0)! as NSData }
 }

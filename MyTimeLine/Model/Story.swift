@@ -5,7 +5,6 @@
 //  Created by Hans Jiang on 2018/3/6.
 //  Copyright © 2018年 Hans Jiang. All rights reserved.
 //
-
 import UIKit
 
 class Story {

@@ -16,16 +16,13 @@ class TimeLineTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-       
+        //setting ImageView CorberRadius
+        StarIconImageView.layer.cornerRadius = 8
+        StarIconImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-    
-    
 
 }

@@ -18,7 +18,7 @@
 		3A4E79F0204D8A0300C0D3C6 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E79EE204D8A0300C0D3C6 /* ActionButton.swift */; };
 		3A4E79F2204D8E7500C0D3C6 /* EditStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E79F1204D8E7500C0D3C6 /* EditStoryViewController.swift */; };
 		3A4E79F4204E181600C0D3C6 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E79F3204E181600C0D3C6 /* Story.swift */; };
-		3A4E79F6204E23C200C0D3C6 /* CGExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E79F5204E23C200C0D3C6 /* CGExtention.swift */; };
+		3A4E79F6204E23C200C0D3C6 /* Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E79F5204E23C200C0D3C6 /* Extention.swift */; };
 		3A4E7A08204EA84D00C0D3C6 /* UIView+AddClickedEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E7A00204EA84B00C0D3C6 /* UIView+AddClickedEvent.m */; };
 		3A4E7A09204EA84D00C0D3C6 /* TimeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E7A01204EA84B00C0D3C6 /* TimeExtension.swift */; };
 		3A4E7A0A204EA84D00C0D3C6 /* UIScreenDisplaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E7A02204EA84C00C0D3C6 /* UIScreenDisplaying.m */; };
@@ -63,6 +63,10 @@
 		6DCF04A085346A078858E9BD /* Pods_MyTimeLine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FFCDCB9CD2944177290393E /* Pods_MyTimeLine.framework */; };
 		D480EA6B20521BB50028D713 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480EA6A20521BB50028D713 /* BaseViewController.swift */; };
 		D480EA702056718D0028D713 /* FireBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480EA6F2056718D0028D713 /* FireBaseManager.swift */; };
+		D480EA72205675500028D713 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = D480EA71205675500028D713 /* Gif.swift */; };
+		D480EA7420574D4A0028D713 /* pikaLoading.gif in Resources */ = {isa = PBXBuildFile; fileRef = D480EA7320574D490028D713 /* pikaLoading.gif */; };
+		D480EA7620574DB80028D713 /* pikaLoading3.gif in Resources */ = {isa = PBXBuildFile; fileRef = D480EA7520574DB80028D713 /* pikaLoading3.gif */; };
+		D480EA7820574DDF0028D713 /* pikaLoading2.gif in Resources */ = {isa = PBXBuildFile; fileRef = D480EA7720574DDF0028D713 /* pikaLoading2.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,7 +83,7 @@
 		3A4E79EE204D8A0300C0D3C6 /* ActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		3A4E79F1204D8E7500C0D3C6 /* EditStoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStoryViewController.swift; sourceTree = "<group>"; };
 		3A4E79F3204E181600C0D3C6 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
-		3A4E79F5204E23C200C0D3C6 /* CGExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGExtention.swift; sourceTree = "<group>"; };
+		3A4E79F5204E23C200C0D3C6 /* Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
 		3A4E79FE204EA84600C0D3C6 /* MyTimeLine-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyTimeLine-Bridging-Header.h"; sourceTree = "<group>"; };
 		3A4E79FF204EA84B00C0D3C6 /* UIScreenDisplaying.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScreenDisplaying.h; sourceTree = "<group>"; };
 		3A4E7A00204EA84B00C0D3C6 /* UIView+AddClickedEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AddClickedEvent.m"; sourceTree = "<group>"; };
@@ -158,6 +162,10 @@
 		9FFCDCB9CD2944177290393E /* Pods_MyTimeLine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyTimeLine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D480EA6A20521BB50028D713 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		D480EA6F2056718D0028D713 /* FireBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseManager.swift; sourceTree = "<group>"; };
+		D480EA71205675500028D713 /* Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
+		D480EA7320574D490028D713 /* pikaLoading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pikaLoading.gif; sourceTree = "<group>"; };
+		D480EA7520574DB80028D713 /* pikaLoading3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pikaLoading3.gif; sourceTree = "<group>"; };
+		D480EA7720574DDF0028D713 /* pikaLoading2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pikaLoading2.gif; sourceTree = "<group>"; };
 		F527B101417B25B69F130D21 /* Pods-MyTimeLine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTimeLine.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyTimeLine/Pods-MyTimeLine.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -242,9 +250,13 @@
 		3A4E79EC204D89C300C0D3C6 /* Extention */ = {
 			isa = PBXGroup;
 			children = (
+				D480EA7720574DDF0028D713 /* pikaLoading2.gif */,
+				D480EA7520574DB80028D713 /* pikaLoading3.gif */,
+				D480EA7320574D490028D713 /* pikaLoading.gif */,
 				3A4E79EE204D8A0300C0D3C6 /* ActionButton.swift */,
 				3A4E79ED204D8A0200C0D3C6 /* ActionButtonItem.swift */,
-				3A4E79F5204E23C200C0D3C6 /* CGExtention.swift */,
+				3A4E79F5204E23C200C0D3C6 /* Extention.swift */,
+				D480EA71205675500028D713 /* Gif.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -457,7 +469,10 @@
 			files = (
 				3A4E7A1B204EA8CA00C0D3C6 /* SVProgressHUD.bundle in Resources */,
 				3A4E7A63204EA99D00C0D3C6 /* IconBoneZoom.bundle in Resources */,
+				D480EA7620574DB80028D713 /* pikaLoading3.gif in Resources */,
+				D480EA7420574D4A0028D713 /* pikaLoading.gif in Resources */,
 				3AA2AE2F204ECB47006FC890 /* DatePickerView.xib in Resources */,
+				D480EA7820574DDF0028D713 /* pikaLoading2.gif in Resources */,
 				3A4DC83C20438E420069DD7F /* LaunchScreen.storyboard in Resources */,
 				3AA2AE2D204ECB47006FC890 /* PickerView.xib in Resources */,
 				3A4E79E8204D384400C0D3C6 /* GoogleService-Info.plist in Resources */,
@@ -563,6 +578,7 @@
 				3A4E7A64204EA99D00C0D3C6 /* BoneZoom.swift in Sources */,
 				3A4E7A53204EA98900C0D3C6 /* View+MASAdditions.m in Sources */,
 				3A4E7A31204EA95000C0D3C6 /* MMAlertView.m in Sources */,
+				D480EA72205675500028D713 /* Gif.swift in Sources */,
 				3A4E7A32204EA95000C0D3C6 /* MMPopupCategory.m in Sources */,
 				3A4E7A18204EA8CA00C0D3C6 /* SVIndefiniteAnimatedView.m in Sources */,
 				3A4E7A35204EA95000C0D3C6 /* MMPopupItem.m in Sources */,
@@ -575,7 +591,7 @@
 				3A4E79EF204D8A0300C0D3C6 /* ActionButtonItem.swift in Sources */,
 				3A4E7A57204EA98900C0D3C6 /* MASViewAttribute.m in Sources */,
 				3A4E7A0C204EA84D00C0D3C6 /* BoneShowHUD.swift in Sources */,
-				3A4E79F6204E23C200C0D3C6 /* CGExtention.swift in Sources */,
+				3A4E79F6204E23C200C0D3C6 /* Extention.swift in Sources */,
 				3A4E7A39204EA95100C0D3C6 /* MMSheetView.m in Sources */,
 				3A4DC8442044FBEA0069DD7F /* TimeLineTableViewCell.swift in Sources */,
 				3A4E79F2204D8E7500C0D3C6 /* EditStoryViewController.swift in Sources */,

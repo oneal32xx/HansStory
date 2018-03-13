@@ -14,10 +14,6 @@ protocol AddStoryDelegate {
     func addStoryComplete()
 }
 
-protocol EditStoryDelegate {
-    func editStoryComplete()
-}
-
 class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate , UITextViewDelegate{
 
     @IBOutlet weak var addStoryButton: UIButton!
@@ -28,17 +24,11 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
     @IBOutlet weak var addStoryContentTexeView: UITextView!
     @IBOutlet weak var datepickerButton: UIButton!
     
-    private var currentTextField: UITextField?
-    var tempImageURL: String?
-    var refStory: DatabaseReference!
-    private var isKeyboardShown = false
-    var date: Date?
-
     private var currentTextView: UITextView?
-  
+    private var isKeyboardShown = false
+    var tempImageURL: String?
+    var date: Date?
     var addStoryDelegate: AddStoryDelegate?
-    var editStoryDelegate: EditStoryDelegate?
-    
     var EditStory: Story!
     var EditImageView: UIImage!
     var isEditStory = false
@@ -54,11 +44,8 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
 
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-        refStory = Database.database().reference().child("story");
+        fireBase.refStory = Database.database().reference().child("story");
         pageInit()
-        
-        // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.keyboardWillShow),
@@ -73,8 +60,11 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
     }
 
     func pageInit(){
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy/MM/dd"
+        
         initImagePickerController()
-        if(EditStory != nil)
+        if(EditStory != nil)//初始化頁面資料
         {
             addStoryContentTexeView.text = EditStory.Story
             addStoryImageView.loadImageUsingCache(withUrl: EditStory.ImageURL!)
@@ -82,24 +72,19 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
         
         if(isEditStory)//編輯模式
         {
-            let dateformatter = DateFormatter()
-            dateformatter.dateFormat = "yyyy/MM/dd"
-            let string1 = EditStory.StoryDate
-            addStoryDatePickerLabel.text = string1
-            date = dateformatter.date(from: string1!)
+            let dateForStory = EditStory.StoryDate
+            addStoryDatePickerLabel.text = dateForStory
+            date = dateformatter.date(from: dateForStory!)
             
-        }else{//新增模式
+        }else{//新增模式 預設日期為今天
             date = Date()
-            let dateformatter = DateFormatter()
-            dateformatter.dateFormat = "YYYY/MM/dd"
-            let NowDay = dateformatter.string(from: self.date!)
-            addStoryDatePickerLabel.text = NowDay
+            let toDay = dateformatter.string(from: self.date!)
+            addStoryDatePickerLabel.text = toDay
         }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -109,15 +94,6 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         textView.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        currentTextField = textField
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
         return true
     }
     
@@ -131,15 +107,14 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
         addStoryDelegate?.addStoryComplete()
     }
 
+    //選擇日期
     @IBAction func datePickerPressed(_ sender: UIButton) {
         DatePickerView.presentPicker(sender, defaultDate: date, minimum: false) { (date) in
             self.date = date
-           
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy/MM/dd"
             let dateString = dateFormatter.string(from: date)
             self.addStoryDatePickerLabel.text = dateString
-            
         }
     }
     
@@ -158,17 +133,14 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
         // 建立三個 UIAlertAction 的實體
         // 新增 UIAlertAction 在 UIAlertController actionSheet 的 動作 (action) 與標題
         let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
-            
             // 判斷是否可以從照片圖庫取得照片來源
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                
                 // 如果可以，指定 UIImagePickerController 的照片來源為 照片圖庫 (.photoLibrary)，並 present UIImagePickerController
                 self.imagePickerController.sourceType = .photoLibrary
                 self.present(self.imagePickerController, animated: true, completion: nil)
             }
         }
         let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (Void) in
-            
             // 判斷是否可以從相機取得照片來源
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 // 如果可以，指定 UIImagePickerController 的照片來源為 照片圖庫 (.camera)，並 present UIImagePickerController
@@ -179,7 +151,6 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
         
         // 新增一個取消動作，讓使用者可以跳出 UIAlertController
         let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
-            
             self.imagePickerAlertController.dismiss(animated: true, completion: nil)
         }
         
@@ -240,7 +211,6 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
                 if error != nil {
                     // 若有接收到錯誤，我們就直接印在 Console 就好，在這邊就不另外做處理。
                     print("Error: \(error!.localizedDescription)")
-                   
                     return
                 }
                 
@@ -253,28 +223,22 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
                     //上傳Database
                     let databaseRef = Database.database().reference().child("AppCodaFireUpload").child(uniqueString)
                     databaseRef.setValue(uploadImageUrl, withCompletionBlock: { (error, dataRef) in
-                        
                         if error != nil {
-                            
                             print("Database Error: \(error!.localizedDescription)")
                             
                         }
                         else {
                             
                             print("圖片已儲存")
-                            //generating a new key inside artists node
+                            //generating a new key inside story node
                             //and also getting the generated key
-                            var key = self.refStory.childByAutoId().key
+                            var key = self.fireBase.refStory.childByAutoId().key
                             if(self.isEditStory)
                             {
                                 key = self.EditStory.id!
                             }
-                            
-                            let dateformatter = DateFormatter()
-                            dateformatter.dateFormat = "YYYY/MM/dd"
-                            let customDate = dateformatter.string(from: self.date!)
-                            
-                            //creating artist with the given values
+
+                            //creating story with the given values
                             let story = ["id":key,
                                          "UploadUser": "HansJiang",
                                          "Story": self.addStoryContentTexeView.text! as String,
@@ -282,8 +246,8 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
                                          "StoryDate": self.addStoryDatePickerLabel.text,
                                          ]
                             
-                            //adding the artist inside the generated unique key
-                            self.refStory.child(key).setValue(story) { (error, ref) in
+                            //adding the story inside the generated unique key
+                            self.fireBase.refStory.child(key).setValue(story) { (error, ref) in
                                 if error != nil{
                                     print(error!)
                                    
@@ -301,7 +265,6 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
         }
         }else{
             //沒有選擇新圖片,僅更新內容
-            //creating artist with the given values
             let story = ["id":self.EditStory.id,
                          "UploadUser": "HansJiang",
                          "Story": self.addStoryContentTexeView.text! as String,
@@ -309,8 +272,8 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
                          "StoryDate": self.addStoryDatePickerLabel.text,
                          ]
             
-            //adding the artist inside the generated unique key
-            self.refStory.child(self.EditStory.id!).setValue(story) { (error, ref) in
+            //adding the story inside the generated unique key
+            self.fireBase.refStory.child(self.EditStory.id!).setValue(story) { (error, ref) in
                 if error != nil{
                     print(error!)
                     
@@ -320,16 +283,12 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
                     self.dismiss(animated: true, completion: nil)
                 }
             }
-            
         }
-        
-        
       
     }
     
     // MARK: ImagePicker Delegate 选择图片成功后代理  圖片暫存
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
         if let chosenImage =  info[UIImagePickerControllerOriginalImage] as? UIImage {
             picker.dismiss(animated: true) {
                 self.addStoryImageView.image = chosenImage
@@ -338,8 +297,7 @@ class EditStoryViewController: BaseViewController, UITextFieldDelegate, UIImageP
         }
     }
     
-    
-
+    //鍵盤顯示隱藏處理
     @objc func keyboardWillShow(note: NSNotification) {
         if isKeyboardShown {
             return

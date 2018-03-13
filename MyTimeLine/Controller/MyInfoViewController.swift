@@ -22,7 +22,6 @@ class MyInfoViewController: UIViewController, IAxisValueFormatter {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         RadarChart.delegate = self as? ChartViewDelegate
         setChart()
         RadarChart.chartDescription?.enabled = false
@@ -33,38 +32,21 @@ class MyInfoViewController: UIViewController, IAxisValueFormatter {
         xAxis.valueFormatter = self
         xAxis.labelTextColor = .black
         
-        
         let yAxis = RadarChart.yAxis
         yAxis.labelFont = .systemFont(ofSize: 8, weight: .light)
         yAxis.labelCount = 5
         yAxis.axisMinimum = 0
         yAxis.axisMaximum = 180
         yAxis.drawLabelsEnabled = false
-     
-        
         RadarChart.animate(xAxisDuration: 1.4, yAxisDuration: 1.4, easingOption: .easeOutBack)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
 
     func setChart() {
-        
-        let mult: UInt32 = 500
-        let min: UInt32 = 100
-        let cnt = 5
-        
-        
-        
-        let block: (Int) -> RadarChartDataEntry = { _ in return RadarChartDataEntry(value: Double(arc4random_uniform(mult) + min))}
-
-        let entries2 = (0..<cnt).map(block)
-        print(entries2)
-        print(activities)
-        
+        //let activities = ["肥胖", "智慧", "胃", "肉麻", "愛妮"]
         let ChartDataEntry1 = ChartDataEntry.init(x: 0, y: 100)
         let ChartDataEntry2 = ChartDataEntry.init(x: 0, y: 110)
         let ChartDataEntry3 = ChartDataEntry.init(x: 0, y: 20)
@@ -76,23 +58,19 @@ class MyInfoViewController: UIViewController, IAxisValueFormatter {
                                          ChartDataEntry4,
                                          ChartDataEntry5]
         
+        let RCset = RadarChartDataSet(values: entry, label: "HansJiang 的能力值")
+        RCset.setColor(UIColor(red: 121/255, green: 162/255, blue: 175/255, alpha: 1))
+        RCset.fillColor = UIColor(red: 121/255, green: 162/255, blue: 175/255, alpha: 1)
+        RCset.drawFilledEnabled = true
+        RCset.fillAlpha = 0.4
+        RCset.lineWidth = 1
+        RCset.drawHighlightCircleEnabled = true
+        RCset.setDrawHighlightIndicators(false)
         
-        let set2 = RadarChartDataSet(values: entry, label: "HansJiang 的能力值")
-        set2.setColor(UIColor(red: 121/255, green: 162/255, blue: 175/255, alpha: 1))
-        set2.fillColor = UIColor(red: 121/255, green: 162/255, blue: 175/255, alpha: 1)
-        set2.drawFilledEnabled = true
-        set2.fillAlpha = 0.4
-        set2.lineWidth = 1
-        set2.drawHighlightCircleEnabled = true
-        set2.setDrawHighlightIndicators(false)
-        
-        
-        let data = RadarChartData(dataSets: [set2])
+        let data = RadarChartData(dataSets: [RCset])
         data.setValueFont(.systemFont(ofSize: 8, weight: .light))
         data.setDrawValues(false)
         data.setValueTextColor(.white)
-        
-        
         RadarChart.data = data
     }
     
