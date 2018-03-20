@@ -56,28 +56,14 @@ class TimeLineViewController: BaseViewController, UITableViewDataSource, UITable
                 //iterating through all the values
                 for story in snapshot.children.allObjects as! [DataSnapshot] {
                     //getting values
-                    let storyObject = story.value as? [String: AnyObject]
-                    let storyUploadUser  = storyObject?["UploadUser"]
-                    let storyId  = storyObject?["id"]
-                    let storyContent = storyObject?["Story"]
-                    let ImageURL = storyObject?["ImageURL"]
-                    let StoryDate = storyObject?["StoryDate"]
-                    
-                    //creating story object with model and fetched values
-                    let storyItem = Story(id: storyId as! String?,
-                                               UploadUser: storyUploadUser as! String?,
-                                               Story: storyContent as! String?,
-                                               ImageURL: ImageURL as! String?,
-                                               StoryDate: StoryDate as! String?,
-                                               StoryImage: UIImage())
-                    
-                    //appending it to list
+                    let storyItem = Story(snapshot: story)
                     self.story.append(storyItem)
+                    
                 }
                 
                 //sort date
                 self.story.sort(by: { $0.StoryDate! > $1.StoryDate! })
-                //reloading the tableview
+                
                 self.TimeLineTableView.reloadData()
                 self.stopAnimating()
             }
@@ -136,7 +122,7 @@ class TimeLineViewController: BaseViewController, UITableViewDataSource, UITable
     }
     
     func DeleteStory(id:String){
-        //updating the artist using the key of the artist
+        //updating the story using the key of the story
         fireBase.refStory.child(id).setValue(nil)
         //displaying message
         print("story delete!")

@@ -6,6 +6,7 @@
 //  Copyright © 2018年 Hans Jiang. All rights reserved.
 //
 import UIKit
+import FirebaseDatabase
 
 class Story {
     
@@ -25,6 +26,24 @@ class Story {
         self.StoryImage = StoryImage
     }
     
+    init(snapshot: DataSnapshot){
+        let storyObject = snapshot.value as? [String: AnyObject]
+        self.UploadUser  = storyObject?["UploadUser"] as? String
+        self.id  = storyObject?["id"] as? String
+        self.Story = storyObject?["Story"] as? String
+        self.ImageURL = storyObject?["ImageURL"] as? String
+        self.StoryDate = storyObject?["StoryDate"] as? String
+        self.StoryImage = UIImage()
+    }
     
+    func toAnyObject() -> Any {
+        return [
+            "id": id,
+            "UploadUser": UploadUser,
+            "Story": Story,
+            "ImageURL": ImageURL,
+            "StoryDate": StoryDate,
+        ]
+    }
     
 }

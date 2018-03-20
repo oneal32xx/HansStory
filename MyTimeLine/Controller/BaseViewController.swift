@@ -34,9 +34,11 @@ class BaseViewController: UIViewController, NVActivityIndicatorViewable {
     {
         let creatorIcon = UIImage(named: "personalInfo")!
         let addStoryIcon = UIImage(named: "addStory")!
+        let foodIcon = UIImage(named: "foodActionButton")!
+        
         let addStoryPage = ActionButtonItem(title: "新增回憶", image: addStoryIcon)
         addStoryPage.action = {
-            item in print("Google Plus...")
+            item in print("AddStory...")
             //顯示新增回憶頁面
             self.actionButton.toggleMenu()
             let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -46,7 +48,7 @@ class BaseViewController: UIViewController, NVActivityIndicatorViewable {
         }
         
         let creatorInfoPage = ActionButtonItem(title: "作者介紹", image: creatorIcon)
-        creatorInfoPage.action = { item in print("Twitter...")
+        creatorInfoPage.action = { item in print("CreatorInfo...")
             //顯示介紹
             self.actionButton.toggleMenu()
             let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -55,7 +57,17 @@ class BaseViewController: UIViewController, NVActivityIndicatorViewable {
             
         }
         
-        actionButton = ActionButton(attachedToView: self.view, items: [creatorInfoPage, addStoryPage])
+        let whatEatPage = ActionButtonItem(title: "吃什麼", image: foodIcon)
+        whatEatPage.action = { item in print("eat...")
+            //顯示介紹
+            self.actionButton.toggleMenu()
+            let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let controller = mainStoryboard.instantiateViewController(withIdentifier: "EatWhatViewController") as! EatWhatViewController
+            self.present(controller, animated: true, completion: nil)
+        }
+        actionButton = ActionButton(attachedToView: self.view, items: [creatorInfoPage, addStoryPage, whatEatPage])
+
+        //actionButton = ActionButton(attachedToView: self.view, items: [creatorInfoPage, addStoryPage])
         actionButton.action = { button in button.toggleMenu() }
         actionButton.setTitle("+", forState: .normal)
         actionButton.backgroundColor = UIColor(red: 238.0/255.0, green: 130.0/255.0, blue: 34.0/255.0, alpha:0.8)

@@ -6,8 +6,11 @@ target 'MyTimeLine' do
   use_frameworks!
 
   # Pods for MyTimeLine
+  pod 'Firebase/Core'
   pod 'Firebase/Storage'
   pod 'Firebase/Database'
   pod "NVActivityIndicatorView"
   pod 'Charts'
+  pod 'Fabric', '~> 1.7.5'
+  pod 'Crashlytics', '~> 3.10.1'
 end

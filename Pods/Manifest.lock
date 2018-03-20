@@ -2,6 +2,9 @@ PODS:
   - Charts (3.0.5):
     - Charts/Core (= 3.0.5)
   - Charts/Core (3.0.5)
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
+  - Fabric (1.7.5)
   - Firebase/Core (4.8.2):
     - FirebaseAnalytics (= 4.0.9)
     - FirebaseCore (= 4.0.14)
@@ -44,12 +47,17 @@ PODS:
 
 DEPENDENCIES:
   - Charts
+  - Crashlytics (~> 3.10.1)
+  - Fabric (~> 1.7.5)
+  - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
   - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
   Charts: 45cdc985b764c838b35ee47eb1365d15735f6d1a
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
+  Fabric: ae7146a5f505ea370a1e44820b4b1dc8890e2890
   Firebase: 7d3b8cd837ad9fcd391657734c0d56dab8e9a5a3
   FirebaseAnalytics: 388b630c15713f5dbf364071f5f3d6077fb52f4e
   FirebaseCore: 2e0b98fb2d64ca8140136beff15772bdd14d2dd7
@@ -62,6 +70,6 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
 
-PODFILE CHECKSUM: 863b09853ba54e52116fe5e720a5eca5c7bb3ed1
+PODFILE CHECKSUM: 4910b879bb1c2d2bbc909c4b5e6bd114b52f0aa6
 
 COCOAPODS: 1.4.0
