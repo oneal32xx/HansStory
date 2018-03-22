@@ -66,8 +66,6 @@ class BaseViewController: UIViewController, NVActivityIndicatorViewable {
             self.present(controller, animated: true, completion: nil)
         }
         actionButton = ActionButton(attachedToView: self.view, items: [creatorInfoPage, addStoryPage, whatEatPage])
-
-        //actionButton = ActionButton(attachedToView: self.view, items: [creatorInfoPage, addStoryPage])
         actionButton.action = { button in button.toggleMenu() }
         actionButton.setTitle("+", forState: .normal)
         actionButton.backgroundColor = UIColor(red: 238.0/255.0, green: 130.0/255.0, blue: 34.0/255.0, alpha:0.8)

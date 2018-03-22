@@ -253,16 +253,10 @@
 			isa = PBXGroup;
 			children = (
 				3AA2AE27204ECAFA006FC890 /* Picker */,
-				3A4DC83320438E420069DD7F /* TimeLineViewController.swift */,
-				3A4DC8432044FBEA0069DD7F /* TimeLineTableViewCell.swift */,
-				3A4E79F1204D8E7500C0D3C6 /* EditStoryViewController.swift */,
-				3AA2AE4E204F91A7006FC890 /* MyInfoViewController.swift */,
-				D40375062058D4FB000035E4 /* EatWhatViewController.swift */,
-				D403750A205A65D4000035E4 /* FoodListViewController.swift */,
-				D4037512205BA245000035E4 /* FoodListTableViewCell.swift */,
-				D4037514205BB97B000035E4 /* FoodFilterViewController.swift */,
-				D4037516205BE374000035E4 /* FoodFilterTableViewCell.swift */,
-				D4037510205B95DB000035E4 /* AddFoodViewController.swift */,
+				D4C8FD572061F74600C4262A /* MyInfo */,
+				D4C8FD562061F6F800C4262A /* FoodList */,
+				D4C8FD552061F6DA00C4262A /* EatWhat */,
+				D4C8FD542061F69B00C4262A /* TimeLine */,
 				D480EA6A20521BB50028D713 /* BaseViewController.swift */,
 			);
 			path = Controller;
@@ -423,6 +417,44 @@
 				D480EA6F2056718D0028D713 /* FireBaseManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		D4C8FD542061F69B00C4262A /* TimeLine */ = {
+			isa = PBXGroup;
+			children = (
+				3A4DC83320438E420069DD7F /* TimeLineViewController.swift */,
+				3A4DC8432044FBEA0069DD7F /* TimeLineTableViewCell.swift */,
+				3A4E79F1204D8E7500C0D3C6 /* EditStoryViewController.swift */,
+			);
+			path = TimeLine;
+			sourceTree = "<group>";
+		};
+		D4C8FD552061F6DA00C4262A /* EatWhat */ = {
+			isa = PBXGroup;
+			children = (
+				D40375062058D4FB000035E4 /* EatWhatViewController.swift */,
+			);
+			path = EatWhat;
+			sourceTree = "<group>";
+		};
+		D4C8FD562061F6F800C4262A /* FoodList */ = {
+			isa = PBXGroup;
+			children = (
+				D403750A205A65D4000035E4 /* FoodListViewController.swift */,
+				D4037512205BA245000035E4 /* FoodListTableViewCell.swift */,
+				D4037514205BB97B000035E4 /* FoodFilterViewController.swift */,
+				D4037516205BE374000035E4 /* FoodFilterTableViewCell.swift */,
+				D4037510205B95DB000035E4 /* AddFoodViewController.swift */,
+			);
+			path = FoodList;
+			sourceTree = "<group>";
+		};
+		D4C8FD572061F74600C4262A /* MyInfo */ = {
+			isa = PBXGroup;
+			children = (
+				3AA2AE4E204F91A7006FC890 /* MyInfoViewController.swift */,
+			);
+			path = MyInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
